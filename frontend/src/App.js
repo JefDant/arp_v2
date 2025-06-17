@@ -9,6 +9,7 @@ function App() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.log('Tentando fazer login com:', { email, senha });
     try {
       const response = await fetch('http://31.97.18.235:5000/api/v1/auth/login', {
         method: 'POST',
@@ -18,16 +19,19 @@ function App() {
         body: JSON.stringify({ email, senha }),
       });
 
+      console.log('Resposta do servidor:', response.status);
       const data = await response.json();
+      console.log('Dados recebidos:', data);
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
         setLogado(true);
         setErro('');
       } else {
-        setErro(data.mensagem || 'Erro ao fazer login');
+        setErro(data.message || 'Erro ao fazer login');
       }
     } catch (error) {
+      console.error('Erro na requisição:', error);
       setErro('Erro ao conectar com o servidor');
     }
   };
