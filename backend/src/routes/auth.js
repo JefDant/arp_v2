@@ -38,6 +38,8 @@ router.post('/login', async (req, res) => {
 
     const usuario = rows[0];
     console.log('Comparando senhas...');
+    console.log('Senha recebida:', senha);
+    console.log('Hash armazenado:', usuario.senha_hash);
 
     // Verificar senha
     const senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
