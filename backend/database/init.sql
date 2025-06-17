@@ -148,7 +148,7 @@ INSERT INTO usuarios (nome, email, senha_hash, tipo_usuario, entidade_id)
 VALUES (
     'Administrador',
     'admin@sistema.com',
-    '$2a$10$X7UrH5YxX5YxX5YxX5YxX.5YxX5YxX5YxX5YxX5YxX5YxX5YxX5YxX', -- senha: admin123
+    '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', -- senha: admin123
     'ADMIN',
     1
 ); 
