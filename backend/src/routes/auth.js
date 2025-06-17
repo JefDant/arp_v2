@@ -15,28 +15,36 @@ const dbConfig = {
 // Rota de login
 router.post('/login', async (req, res) => {
   try {
+    console.log('Tentativa de login recebida:', req.body);
     const { email, senha } = req.body;
 
     // Conectar ao banco de dados
     const connection = await mysql.createConnection(dbConfig);
+    console.log('Conexão com banco de dados estabelecida');
 
     // Buscar usuário
     const [rows] = await connection.execute(
       'SELECT * FROM usuarios WHERE email = ?',
       [email]
     );
+    console.log('Usuário encontrado:', rows.length > 0 ? 'Sim' : 'Não');
 
     await connection.end();
 
     if (rows.length === 0) {
+      console.log('Usuário não encontrado');
       return res.status(401).json({ message: 'Email ou senha inválidos' });
     }
 
     const usuario = rows[0];
+    console.log('Comparando senhas...');
 
     // Verificar senha
     const senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
+    console.log('Senha válida:', senhaValida);
+
     if (!senhaValida) {
+      console.log('Senha inválida');
       return res.status(401).json({ message: 'Email ou senha inválidos' });
     }
 
@@ -50,6 +58,7 @@ router.post('/login', async (req, res) => {
       process.env.JWT_SECRET || 'sua_chave_secreta_aqui',
       { expiresIn: '1d' }
     );
+    console.log('Token gerado com sucesso');
 
     res.json({
       token,
