@@ -4,6 +4,14 @@ const corsOptions = require('./config/cors');
 
 const app = express();
 
+// Middleware de logging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  console.log('Headers:', req.headers);
+  console.log('Body:', req.body);
+  next();
+});
+
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
