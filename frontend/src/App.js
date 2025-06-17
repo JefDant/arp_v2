@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Layout from './components/Layout';
 import './App.css';
 
 function App() {
@@ -38,16 +39,29 @@ function App() {
 
   if (logado) {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>ARP - Sistema de Gestão</h1>
-          <p>Bem-vindo ao sistema!</p>
-          <button onClick={() => {
-            localStorage.removeItem('token');
-            setLogado(false);
-          }}>Sair</button>
-        </header>
-      </div>
+      <Layout>
+        <div className="dashboard">
+          <h2>Dashboard</h2>
+          <div className="dashboard-grid">
+            <div className="dashboard-card">
+              <h3>Atas</h3>
+              <p>Total: 0</p>
+            </div>
+            <div className="dashboard-card">
+              <h3>Aditivos</h3>
+              <p>Total: 0</p>
+            </div>
+            <div className="dashboard-card">
+              <h3>Empenhos</h3>
+              <p>Total: 0</p>
+            </div>
+            <div className="dashboard-card">
+              <h3>Pagamentos</h3>
+              <p>Total: 0</p>
+            </div>
+          </div>
+        </div>
+      </Layout>
     );
   }
 
